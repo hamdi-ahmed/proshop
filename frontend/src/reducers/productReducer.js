@@ -7,6 +7,9 @@ import {
     PRODUCT_UPDATE_SUCCESS,
     PRODUCT_UPDATE_FAIL,
     PRODUCT_UPDATE_RESET,
+    SET_CREATE_PRODUCT_SUCCESS,
+    SET_CREATE_PRODUCT_FAIL,
+    SET_CREATE_PRODUCT_RESET,
     PRODUCT_CREATE_REVIEW_REQUEST,
     PRODUCT_CREATE_REVIEW_SUCCESS,
     PRODUCT_CREATE_REVIEW_FAIL,
@@ -61,16 +64,16 @@ export const productReducerDelete = (state = { success: false }, action) => {
 
 export const createProductReducer = (state = {}, action) => {
     switch (action.type) {
-        case PRODUCT_TOP_RATED_REQUEST:
+        case SET_CREATE_PRODUCT_SUCCESS:
             return {
                 success: true,
                 product: action.product
             }
-        case PRODUCT_TOP_RATED_SUCCESS:
+        case SET_CREATE_PRODUCT_FAIL:
             return {
                 error: action.error
             }
-        case PRODUCT_TOP_RATED_FAIL:
+        case SET_CREATE_PRODUCT_RESET:
             return {}
         default:
             return state

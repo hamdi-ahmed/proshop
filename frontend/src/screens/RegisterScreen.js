@@ -15,6 +15,19 @@ const RegisterScreen = ({ location, history }) => {
     const [message, setMessage] = useState(null)
     const dispatch = useDispatch()
 
+
+
+    const userRegister = useSelector(state => state.userRegister)
+    const { userInfo, loading, error } = userRegister
+
+    const redirect = location.search ? location.search.split('=')[1] : '/'
+
+    useEffect(() => {
+        if (userInfo) {
+            history.push(redirect)
+        }
+    }, [history, redirect, userInfo])
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (password !== confirmPassword) {
@@ -22,22 +35,11 @@ const RegisterScreen = ({ location, history }) => {
         } else {
             dispatch(register(name, email, password))
         }
-        //console.log('object')
     }
 
-
-    const redirect = location.search ? location.search.split('=')[1] : '/'
-    const userRegister = useSelector(state => state.userRegister)
-    const { userInfo, loading, error } = userRegister
-    //console.log('sss', userRegister)
-    useEffect(() => {
-        if (userInfo) {
-            history.push(redirect)
-            //console.log('sss', redirect)
-        }
-    }, [history, redirect, userInfo])
     return (
         <Container>
+            <h1>Sign up</h1>
             { message && <Message variant='danger'>{message}</Message>}
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
@@ -87,10 +89,10 @@ const RegisterScreen = ({ location, history }) => {
             </Form>
             <Row className='py-3'>
                 <Col>
-                    Have an Account?{' '}
+                    Have an Account? {' '}
                     <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
                         Login
-                     </Link>
+                    </Link>
                 </Col>
             </Row>
         </Container>

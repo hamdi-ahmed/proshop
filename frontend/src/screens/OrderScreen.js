@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { Container, Row, Col, Card, ListGroup, ListGroupItem, Image } from 'react-bootstrap'
+import { SET_ORDER_RESET } from '../constants/orderConstants'
 //mport { SET_ORDER_RESET } from '../constants/orderConstants'
 
 const OrderScreen = ({ match, history }) => {
@@ -38,12 +39,16 @@ const OrderScreen = ({ match, history }) => {
 
     useEffect(() => {
 
+        if (!userInfo) {
+            history.push('/login')
+        }
+
         //2- Add Script to body when it load
         const addPayPalScript = async () => {
             const { data: clientId } = await axios.get('/api/config/paypal')
             const script = document.createElement('script')
             script.type = 'text/javascript'
-            script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}"`
+            script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
             script.async = true
             script.onload = () => {
                 setSdkReady(true)
@@ -51,8 +56,8 @@ const OrderScreen = ({ match, history }) => {
             document.body.appendChild(script)
         }
 
-        if (!createdOrder || successPay) {
-
+        if (!createdOrder || successPay || createdOrder._id !== orderId) {
+            dispatch({ type: SET_ORDER_RESET })
             dispatch(getOrderDetails(orderId))
         }
         else if (!createdOrder.isPaid) {
@@ -62,7 +67,7 @@ const OrderScreen = ({ match, history }) => {
                 setSdkReady(true)
             }
         }
-    }, [dispatch, orderId, successPay, createdOrder])
+    }, [dispatch, orderId, successPay, createdOrder, history, userInfo])
     //console.log(!singleOrder.isPaid)
     //console.log(loadingPay)
     const successPaymentHandler = (paymentResult) => {

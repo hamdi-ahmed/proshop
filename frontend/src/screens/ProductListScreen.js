@@ -85,7 +85,7 @@ const ProductListScreen = ({ history, match }) => {
                                             <td>${product.price}</td>
                                             <td>{product.category}</td>
                                             <td>{product.brand}</td>
-                                            <td>
+                                            <td style={{ display: 'flex' }}>
                                                 <LinkContainer to={`/admin/product/${product._id}/edit`}>
                                                     <Button className='btn btn-sm mr-1 ' variant='light'><i className="fas fa-edit"></i></Button>
                                                 </LinkContainer>
