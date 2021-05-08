@@ -13,6 +13,7 @@ import { SET_ORDER_RESET } from '../constants/orderConstants'
 const OrderScreen = ({ match, history }) => {
     const orderId = match.params.id
     const dispatch = useDispatch()
+
     const getOrder = useSelector(state => state.getOrder)
     const { singleOrder, error, loading } = getOrder
 

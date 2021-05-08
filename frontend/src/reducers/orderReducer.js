@@ -5,7 +5,7 @@ import {
     ORDERS_SUCCESS,
     ORDER_LIST_RESET,
     SET_CREATE_ORDER_FAIL,
-    SET_CREATE_ORDER_REQUESt,
+    SET_CREATE_ORDER_REQUEST,
     SET_CREATE_ORDER_SUCCESS,
     SET_GET_ORDERS_REQUEST,
     SET_GET_ORDER_FAIL,
@@ -20,7 +20,7 @@ import {
 
 export const createOrderReducer = (state = {}, action) => {
     switch (action.type) {
-        case SET_CREATE_ORDER_REQUESt:
+        case SET_CREATE_ORDER_REQUEST:
             return {
                 loading: true
             }
@@ -43,7 +43,7 @@ export const createOrderReducer = (state = {}, action) => {
 }
 
 
-export const getOrderReducer = (state = { loading: true, singleOrder: [], shippingAddress: {} }, action) => {
+export const getOrderReducer = (state = { loading: true, orderItems: [], shippingAddress: {} }, action) => {
     switch (action.type) {
         case SET_GET_ORDER_REQUEST:
             return {

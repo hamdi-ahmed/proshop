@@ -5,7 +5,7 @@ import {
     ORDERS_REQUEST,
     ORDERS_SUCCESS,
     SET_CREATE_ORDER_FAIL,
-    SET_CREATE_ORDER_REQUESt,
+    SET_CREATE_ORDER_REQUEST,
     SET_CREATE_ORDER_SUCCESS,
     SET_GET_ORDERS_REQUEST,
     SET_GET_ORDER_FAIL,
@@ -20,7 +20,7 @@ import {
 
 export const creatingOrder = (order) => async (dispatch, getState) => {
     try {
-        dispatch({ type: SET_CREATE_ORDER_REQUESt })
+        dispatch({ type: SET_CREATE_ORDER_REQUEST })
 
         const { userLogin: { userInfo } } = getState()
         const config = {
