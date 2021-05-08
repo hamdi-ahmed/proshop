@@ -17,14 +17,14 @@ const OrderScreen = ({ match, history }) => {
     const getOrder = useSelector(state => state.getOrder)
     const { singleOrder, error, loading } = getOrder
 
-    const createOrder = useSelector(state => state.createOrder)
-    const { createdOrder } = createOrder
+    // const createOrder = useSelector(state => state.createOrder)
+    // const { createdOrder } = createOrder
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
     const orderPay = useSelector(state => state.orderPay)
-    const { success: successPay } = orderPay
+    const { success: successPay, loading: loadingPay } = orderPay
 
     const [sdkReady, setSdkReady] = useState(false)
     if (!loading) {
@@ -57,18 +57,18 @@ const OrderScreen = ({ match, history }) => {
             document.body.appendChild(script)
         }
 
-        if (!createdOrder || successPay || createdOrder._id !== orderId) {
+        if (!singleOrder || successPay || singleOrder._id !== orderId) {
             dispatch({ type: SET_ORDER_RESET })
             dispatch(getOrderDetails(orderId))
         }
-        else if (!createdOrder.isPaid) {
+        else if (!singleOrder.isPaid) {
             if (!window.paypal) {
                 addPayPalScript()
             } else {
                 setSdkReady(true)
             }
         }
-    }, [dispatch, orderId, successPay, createdOrder, history, userInfo])
+    }, [dispatch, orderId, successPay, singleOrder, history, userInfo])
     //console.log(!singleOrder.isPaid)
     //console.log(loadingPay)
     const successPaymentHandler = (paymentResult) => {
@@ -167,8 +167,8 @@ const OrderScreen = ({ match, history }) => {
                                 </ListGroupItem>
                                 {!singleOrder.isPaid && (
                                     <ListGroup.Item>
-
-                                        {sdkReady ? (
+                                        {loadingPay && <Loader />}
+                                        {!sdkReady ? (
                                             <Loader />
                                         ) : (
                                             <PayPalButton

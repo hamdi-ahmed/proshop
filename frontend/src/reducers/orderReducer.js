@@ -52,8 +52,8 @@ export const getOrderReducer = (state = { loading: true, orderItems: [], shippin
             }
         case SET_GET_ORDER_SUCCESS:
             return {
-                loading: false,
                 singleOrder: action.singleOrder,
+                loading: false,
             }
         case SET_GET_ORDER_FAIL:
             return {
