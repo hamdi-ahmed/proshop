@@ -34,7 +34,11 @@ const ProductScreen = ({ match, history }) => {
         dispatch(fetchSingleProduct(match.params.id))
     }, [dispatch, match, successReview])
     const addToCartHandler = () => {
-        history.push(`/cart/${match.params.id}?qty=${qty}`)
+        if (userInfo) {
+            history.push(`/cart/${match.params.id}?qty=${qty}`)
+        } else {
+            history.push('/login')
+        }
     }
 
     const submitHandler = (e) => {

@@ -8,7 +8,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { Container, Row, Col, Card, ListGroup, ListGroupItem, Image } from 'react-bootstrap'
 import { SET_ORDER_RESET } from '../constants/orderConstants'
-//mport { SET_ORDER_RESET } from '../constants/orderConstants'
+
 
 const OrderScreen = ({ match, history }) => {
     const orderId = match.params.id
@@ -69,10 +69,14 @@ const OrderScreen = ({ match, history }) => {
             }
         }
     }, [dispatch, orderId, successPay, singleOrder, history, userInfo])
+
+
     //console.log(!singleOrder.isPaid)
     //console.log(loadingPay)
+
+
     const successPaymentHandler = (paymentResult) => {
-        //console.log('ss', paymentResult)
+        console.log('ss', paymentResult)
         dispatch(orderPaid(orderId, paymentResult))
     }
     return loading ? <Loader /> : error ? <Message>{error}</Message> : (
